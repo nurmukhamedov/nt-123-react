@@ -1,20 +1,19 @@
-import carImg from '../assets/bmw-sport.jpg';
-import { Stack, Button } from 'react-bootstrap';
-import Navbar from './Navbar';
+import myStyles from './ComponentA.module.css'
 
 function ComponentA() {
+
+    const myStyle = {
+        color: 'red',
+        fontSize: '18px'
+    }
     return (
         <div>
-            <Navbar />
-            <Stack direction="horizontal" gap={2}>
-                <Button as="a" variant="primary">
-                    Button as link
-                </Button>
-                <Button as="a" variant="success">
-                    Button as link
-                </Button>
-            </Stack>
-            <img src={carImg} alt="bmw car" />
+            <p style={myStyle}>
+                Hello World
+            </p>
+            <h1 className={myStyles.title}>
+                Hello from Component A
+            </h1>
         </div>
     )
 }
