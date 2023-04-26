@@ -2,7 +2,8 @@ import { useState } from 'react'
 
 const Todos = () => {
     const [newTodo, setNewTodo] = useState('');
-    const [lastName, setLastname] = useState('');
+    const [editingTodo, setEditingTodo] = useState(null);
+    const [buttonText, setButtonText] = useState('Submit');
 
     const [todos, setTodos] = useState(() => {
         const storedTodo = localStorage.getItem('todos');
@@ -18,9 +19,22 @@ const Todos = () => {
 
         if (!newTodo.trim()) return;
 
-        setTodos([...todos, { id: Date.now(), text: newTodo }]);
-        setNewTodo('')
-
+        if (editingTodo !== null) {
+            const updateToDo = todos.map((todo) => {
+                if (todo.id === editingTodo) {
+                    return { ...todo, text: newTodo }
+                } else {
+                    return todo;
+                }
+            })
+            setTodos(updateToDo);
+            setEditingTodo(null);
+            setNewTodo('');
+            setButtonText('Submit');
+        } else {
+            setTodos([...todos, { id: Date.now(), text: newTodo }]);
+            setNewTodo('')
+        }
     }
 
     localStorage.setItem('todos', JSON.stringify(todos));
@@ -29,7 +43,12 @@ const Todos = () => {
         const updateToDos = todos.filter((item) => item.id !== id);
         setTodos(updateToDos);
     }
-
+    const handleEditToDo = (id) => {
+        const toDoEdit = todos.find((todo) => todo.id === id);
+        setEditingTodo(id);
+        setNewTodo(toDoEdit.text);
+        setButtonText('Save');
+    }
     return (
         <div>
             <h1>To Do List</h1>
@@ -38,7 +57,12 @@ const Todos = () => {
                     Name:
                     <input type="text" value={newTodo} onChange={handleNewTodoChange} />
                 </label>
-                <button type='submit'>Submit</button>
+                <button type='submit'>{buttonText}</button>
+                {
+                    editingTodo !== null && (
+                        <button type='button' onClick={() => setEditingTodo(null)}>Cancel</button>
+                    )
+                }
             </form>
             <ul>
                 {
@@ -46,6 +70,7 @@ const Todos = () => {
                         <li key={item.id}>
                             <span>{item.text}</span>
                             <button onClick={() => handleDeleteToDo(item.id)}>Delete</button>
+                            <button onClick={() => handleEditToDo(item.id)}>Edit</button>
                         </li>
                     ))
                 }

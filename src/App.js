@@ -1,11 +1,13 @@
 import './App.css';
-import Todos from './components/Todos/Todos';
+import Lesson52 from './components/Lesson-52/Lesson52';
+// import Todos from './components/Todos/Todos';
 
 function App() {
 
   return (
     <>
-      <Todos />
+      {/* <Todos /> */}
+      <Lesson52 />
     </>
   );
 }
