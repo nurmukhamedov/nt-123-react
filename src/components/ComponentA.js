@@ -2,10 +2,17 @@ import carImg from '../assets/bmw-sport.jpg';
 import { Stack, Button } from 'react-bootstrap';
 import Navbar from './Navbar';
 
+import { useTranslation } from 'react-i18next';
+
 function ComponentA() {
+
+    const { t } = useTranslation();
     return (
         <div>
             <Navbar />
+            {
+                t("text2")
+            }
             <Stack direction="horizontal" gap={2}>
                 <Button as="a" variant="primary">
                     Button as link
