@@ -1,13 +1,28 @@
+import { useEffect, useState } from 'react';
+import ExampleClass from './components/Lesson-54/ExampleClass';
 import './App.css';
-import Lesson52 from './components/Lesson-52/Lesson52';
-// import Todos from './components/Todos/Todos';
+import Lesson54 from './components/Lesson-54/Lesson54';
+import CountriesList from './components/Lesson-54/CountriesList';
+
 
 function App() {
+  // const [count, setCount] = useState(0);
+
+  // const handleCount = () => {
+  //   setCount(count + 1)
+  // }
+
+  // useEffect(() => {
+  //   console.log('rendered');
+  // }, [count]);
 
   return (
     <>
-      {/* <Todos /> */}
-      <Lesson52 />
+      {/* {count}
+      <button onClick={handleCount}>Add</button>
+      <ExampleClass /> */}
+      <Lesson54 />
+      <CountriesList />
     </>
   );
 }

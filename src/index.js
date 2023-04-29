@@ -3,11 +3,17 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { MyProvider } from './components/Lesson-54/ExampleContext';
+import { MyFetchContextProvider } from './components/context/FetchContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <MyFetchContextProvider>
+      <MyProvider>
+        <App />
+      </MyProvider>
+    </MyFetchContextProvider>
   </React.StrictMode>
 );
 
