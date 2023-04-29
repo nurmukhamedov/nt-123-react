@@ -4,6 +4,7 @@ import Cards from '../Card/Cards';
 import './Home.scss'
 const Home = () => {
     const [newsData, setNewsData] = useState([]);
+    const [searchTitle, setSearchTitle] = useState('');
 
     const fetchData = async () => {
         try {
@@ -17,18 +18,21 @@ const Home = () => {
 
     useEffect(() => {
         fetchData();
-    }, [])
+    }, []);
+
+    const myData = newsData.filter((news) => {
+        if (!searchTitle.trim()) {
+            return news
+        } else if (news.title.toLowerCase().includes(searchTitle.toLowerCase())) {
+            return news
+        }
+    }).map((news) => (
+        <Cards key={news.id} title={news.title} url={news.imageUrl} summary={news.summary} id={news.id} />
+    ))
     return (
         <div>
-            {
-                console.log(newsData)
-            }
-            {
-
-                newsData.map((news) => (
-                    <Cards key={news.id} title={news.title} url={news.imageUrl} summary={news.summary} id={news.id} />
-                ))
-            }
+            <input type="text" value={searchTitle} onChange={(e) => setSearchTitle(e.target.value)} />
+            {myData}
         </div>
     )
 }
